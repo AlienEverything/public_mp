@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Media — Madinah Pulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,600,700&f[]=satoshi@300,400,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0f1a14;color:#f0ebe0;font-family:'Alexandria',sans-serif;overflow-x:hidden;cursor:none}
+html[data-lang="en"] body{font-family:'Satoshi',sans-serif}
+
+.ar{display:block}.en{display:none}
+.ari{display:inline}.eni{display:none}
+html[data-lang="en"] .ar{display:none}
+html[data-lang="en"] .en{display:block}
+html[data-lang="en"] .ari{display:none}
+html[data-lang="en"] .eni{display:inline}
+
+#dot{position:fixed;width:8px;height:8px;background:#7a9e8a;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+#dot.hover{width:38px;height:38px;background:rgba(122,158,138,.12)}
+
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.55;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E")}
+
+::-webkit-scrollbar{width:2px}::-webkit-scrollbar-track{background:#0f1a14}::-webkit-scrollbar-thumb{background:#3a5a46}
+
+#nav{
+  position:fixed;top:0;inset-inline:0;z-index:500;height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.8rem;
+  border-bottom:1px solid rgba(240,235,224,.07);
+  background:rgba(15,26,20,.85);backdrop-filter:blur(20px);
+  animation:navIn .55s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes navIn{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
+.nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none}
+.nav-logo img{height:30px;width:30px;object-fit:contain}
+.nav-word{font-family:'Alexandria',sans-serif;font-weight:700;font-size:.9rem;color:#f0ebe0}
+html[data-lang="en"] .nav-word{font-family:'Clash Display',sans-serif;letter-spacing:-.02em}
+.nav-links{display:flex;gap:2.2rem;list-style:none;align-items:center}
+.nav-links a{
+  position:relative;font-family:'Satoshi',sans-serif;font-size:.65rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:#f0ebe0;text-decoration:none;
+  opacity:.38;transition:opacity .15s;padding-bottom:3px;
+}
+html[dir="rtl"] .nav-links a{font-family:'Alexandria',sans-serif;letter-spacing:.06em}
+.nav-links a::after{content:'';position:absolute;bottom:0;inset-inline-start:0;width:0;height:1px;background:rgba(240,235,224,.4);transition:width .22s ease}
+.nav-links a:hover{opacity:1}.nav-links a:hover::after{width:100%}
+.nav-links a.on{opacity:1}.nav-links a.on::after{width:100%}
+
+.lbtn{
+  font-family:'Satoshi',sans-serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:.3rem .9rem;
+  border:1px solid rgba(240,235,224,.52);
+  background:rgba(240,235,224,.03);
+  color:rgba(240,235,224,.75);
+  cursor:none;transition:all .2s;
+}
+.lbtn:hover{border-color:rgba(240,235,224,.85);color:#f0ebe0;background:rgba(240,235,224,.07)}
+
+.hero{
+  min-height:calc(100vh - 58px);margin-top:58px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;border-bottom:1px solid rgba(240,235,224,.07);
+}
+
+.hero-bg-word{
+  position:absolute;font-family:'Alexandria',sans-serif;font-weight:900;
+  font-size:clamp(14rem,24vw,28rem);color:rgba(45,71,57,.28);line-height:1;
+  letter-spacing:-.04em;top:50%;left:50%;transform:translate(-50%,-50%);
+  white-space:nowrap;pointer-events:none;user-select:none;
+  animation:bgDrift 20s ease-in-out infinite alternate;
+}
+.hero-bg-word.en-v{font-family:'Clash Display',sans-serif;font-size:clamp(12rem,22vw,26rem)}
+@keyframes bgDrift{from{transform:translate(-50%,-50%) scale(1) rotate(-.4deg)}to{transform:translate(-50%,-50%) scale(1.05) rotate(.4deg)}}
+
+.corners{position:absolute;inset:3.5rem;pointer-events:none}
+.cr{position:absolute;width:18px;height:18px;opacity:0;animation:fadeIn .5s ease forwards}
+.cr.tl{top:0;left:0;border-top:1px solid rgba(240,235,224,.1);border-left:1px solid rgba(240,235,224,.1);animation-delay:.25s}
+.cr.tr{top:0;right:0;border-top:1px solid rgba(240,235,224,.1);border-right:1px solid rgba(240,235,224,.1);animation-delay:.38s}
+.cr.bl{bottom:0;left:0;border-bottom:1px solid rgba(240,235,224,.1);border-left:1px solid rgba(240,235,224,.1);animation-delay:.51s}
+.cr.br{bottom:0;right:0;border-bottom:1px solid rgba(240,235,224,.1);border-right:1px solid rgba(240,235,224,.1);animation-delay:.64s}
+@keyframes fadeIn{to{opacity:1}}
+
+.hero-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:2rem;text-align:center;padding:2rem}
+
+.hero-pill{display:inline-flex;align-items:center;gap:.55rem;border:1px solid rgba(240,235,224,.09);padding:.3rem .9rem;opacity:0;animation:fin .6s ease forwards .1s}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:#7a9e8a;animation:pdot 2.5s ease-in-out infinite}
+@keyframes pdot{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1.2)}}
+.pill-txt{font-family:'Satoshi',sans-serif;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(240,235,224,.35)}
+html[dir="rtl"] .pill-txt{font-family:'Alexandria',sans-serif;letter-spacing:.05em}
+
+.cross{width:56px;height:56px;position:relative;animation:breathe 5s ease-in-out infinite}
+.cross::before{content:'';position:absolute;width:1px;height:100%;left:50%;top:0;background:rgba(240,235,224,.12)}
+.cross::after{content:'';position:absolute;height:1px;width:100%;top:50%;left:0;background:rgba(240,235,224,.12)}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.2);opacity:1}}
+
+.mono{font-family:'Satoshi',sans-serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:rgba(240,235,224,.25)}
+html[dir="rtl"] .mono{font-family:'Alexandria',sans-serif;letter-spacing:.05em}
+
+.hero-h{font-family:'Alexandria',sans-serif;font-weight:900;font-size:clamp(3rem,6.5vw,7rem);color:#f0ebe0;line-height:.92;letter-spacing:-.03em}
+html[data-lang="en"] .hero-h{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(2.8rem,6vw,6.5rem);line-height:.88;letter-spacing:-.05em}
+
+.lr{overflow:hidden;display:block}
+.li{display:block;transform:translateY(105%);animation:up .85s cubic-bezier(.16,1,.3,1) forwards}
+.li.d0{animation-delay:.3s}.li.d1{animation-delay:.45s}
+@keyframes up{to{transform:translateY(0)}}
+@keyframes fin{to{opacity:1}}
+
+.hdiv{width:40px;height:1px;background:rgba(240,235,224,.1)}
+
+.hero-scroll{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.7rem;opacity:0;animation:fin .6s ease forwards .9s}
+.scroll-track{width:1px;height:50px;background:rgba(240,235,224,.09);position:relative;overflow:hidden}
+.scroll-track::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:50%;background:linear-gradient(to bottom,transparent,rgba(122,158,138,.7),transparent);animation:scrollDrop 2.4s ease-in-out infinite 1.2s}
+@keyframes scrollDrop{0%{top:-100%}100%{top:200%}}
+.scroll-lbl{font-family:'Satoshi',sans-serif;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.18);writing-mode:vertical-rl}
+html[dir="rtl"] .scroll-lbl{font-family:'Alexandria',sans-serif}
+
+footer{border-top:1px solid rgba(240,235,224,.07);padding:2rem 2.8rem;display:flex;align-items:center;justify-content:space-between}
+html[dir="rtl"] footer{direction:rtl}
+.ft-brand{display:flex;align-items:center;gap:.55rem}
+.ft-brand img{height:22px;object-fit:contain;opacity:.28}
+.ft-name{font-family:'Alexandria',sans-serif;font-weight:700;font-size:.72rem;color:rgba(240,235,224,.28)}
+html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
+.ft-email{font-family:'Satoshi',sans-serif;font-size:.6rem;letter-spacing:.06em;color:rgba(240,235,224,.22);text-decoration:none;transition:color .15s}
+.ft-email:hover{color:rgba(240,235,224,.65)}
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+
+@media(max-width:860px){
+  #nav{padding:0 1.4rem}.nav-links{display:none}
+  .hero-scroll{display:none}.corners{inset:1.5rem}
+  footer{padding:1.5rem 1.4rem;flex-direction:column;gap:.8rem;text-align:center}
+}
+</style>
+</head>
+<body>
+<div id="dot"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="https://alieneverything.github.io/public_mp/MP.png" alt="MP">
+    <span class="nav-word"><span class="ari">نبض المدينة</span><span class="eni">Madinah Pulse</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html"><span class="ari">الرئيسية</span><span class="eni">Home</span></a></li>
+    <li><a href="media.html" class="on"><span class="ari">المحتوى</span><span class="eni">Media</span></a></li>
+    <li><a href="contact.html"><span class="ari">تواصل</span><span class="eni">Contact</span></a></li>
+  </ul>
+  <button class="lbtn" id="lbtn" onclick="toggleLang()">عربي</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-word ar">إعلام</div>
+  <div class="hero-bg-word en-v en">MEDIA</div>
+  <div class="corners">
+    <div class="cr tl"></div><div class="cr tr"></div>
+    <div class="cr bl"></div><div class="cr br"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-pill">
+      <span class="pill-dot"></span>
+      <span class="pill-txt ari">المحتوى الإعلامي</span>
+      <span class="pill-txt eni">Media Content</span>
+    </div>
+    <div class="cross"></div>
+    <span class="mono"><span class="ari">المحتوى الإعلامي</span><span class="eni">Media Content</span></span>
+    <h1 class="hero-h ar">
+      <span class="lr"><span class="li d0">مساحة محجوزة</span></span>
+      <span class="lr"><span class="li d1">للإعلام</span></span>
+    </h1>
+    <h1 class="hero-h en">
+      <span class="lr"><span class="li d0">Media</span></span>
+      <span class="lr"><span class="li d1">Placeholder</span></span>
+    </h1>
+    <div class="hdiv"></div>
+    <span class="mono"><span class="ari">المقابلات، التقارير، والمحتوى — قريباً</span><span class="eni">Interviews, reports, content — coming soon</span></span>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-track"></div>
+    <span class="scroll-lbl ari">أسفل</span>
+    <span class="scroll-lbl eni">scroll</span>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-brand">
+    <img src="https://alieneverything.github.io/public_mp/MP.png" alt="">
+    <span class="ft-name"><span class="ari">نبض المدينة</span><span class="eni">Madinah Pulse</span></span>
+  </div>
+  <a href="mailto:madinahpulse@proton.me" class="ft-email">madinahpulse@proton.me</a>
+</footer>
+
+<script>
+const dot=document.getElementById('dot');
+document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px'});
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>dot.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>dot.classList.remove('hover'));
+});
+function toggleLang(){
+  const h=document.documentElement;
+  const next=h.getAttribute('data-lang')==='ar'?'en':'ar';
+  applyLang(next);try{sessionStorage.setItem('mp-lang',next)}catch(e){}
+}
+function applyLang(l){
+  const h=document.documentElement;
+  h.setAttribute('data-lang',l);h.setAttribute('lang',l);
+  h.setAttribute('dir',l==='ar'?'rtl':'ltr');
+  document.getElementById('lbtn').textContent=l==='ar'?'EN':'عربي';
+}
+try{const s=sessionStorage.getItem('mp-lang');if(s)applyLang(s)}catch(e){}
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*80);obs.unobserve(e.target)}});
+},{threshold:.07});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

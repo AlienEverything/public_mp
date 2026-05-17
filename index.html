@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Madinah Pulse — نبض المدينة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,600,700&f[]=satoshi@300,400,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0f1a14;color:#f0ebe0;font-family:'Alexandria',sans-serif;overflow-x:hidden;cursor:none}
+html[data-lang="en"] body{font-family:'Satoshi',sans-serif}
+
+/* lang */
+.ar{display:block}.en{display:none}
+.ari{display:inline}.eni{display:none}
+html[data-lang="en"] .ar{display:none}
+html[data-lang="en"] .en{display:block}
+html[data-lang="en"] .ari{display:none}
+html[data-lang="en"] .eni{display:inline}
+
+/* cursor */
+#dot{position:fixed;width:8px;height:8px;background:#7a9e8a;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s}
+#dot.hover{width:38px;height:38px;background:rgba(122,158,138,.12)}
+
+/* grain */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.55;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E")}
+
+/* scrollbar */
+::-webkit-scrollbar{width:2px}::-webkit-scrollbar-track{background:#0f1a14}::-webkit-scrollbar-thumb{background:#3a5a46}
+
+/* NAV */
+#nav{
+  position:fixed;top:0;inset-inline:0;z-index:500;height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.8rem;
+  border-bottom:1px solid rgba(240,235,224,.07);
+  background:rgba(15,26,20,.85);backdrop-filter:blur(20px);
+  animation:navIn .55s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes navIn{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
+.nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none}
+.nav-logo img{height:30px;width:30px;object-fit:contain}
+.nav-word{font-family:'Alexandria',sans-serif;font-weight:700;font-size:.9rem;color:#f0ebe0}
+html[data-lang="en"] .nav-word{font-family:'Clash Display',sans-serif;letter-spacing:-.02em}
+.nav-links{display:flex;gap:2.2rem;list-style:none;align-items:center}
+.nav-links a{
+  position:relative;
+  font-family:'Satoshi',sans-serif;font-size:.65rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:#f0ebe0;text-decoration:none;opacity:.38;transition:opacity .15s;
+  padding-bottom:3px;
+}
+html[dir="rtl"] .nav-links a{font-family:'Alexandria',sans-serif;letter-spacing:.06em}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;inset-inline-start:0;
+  width:0;height:1px;background:rgba(240,235,224,.4);
+  transition:width .22s ease;
+}
+.nav-links a:hover{opacity:1}
+.nav-links a:hover::after{width:100%}
+.nav-links a.on{opacity:1}
+.nav-links a.on::after{width:100%}
+
+/* lang btn */
+.lbtn{
+  font-family:'Satoshi',sans-serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:.3rem .9rem;
+  border:1px solid rgba(240,235,224,.52);
+  background:rgba(240,235,224,.03);
+  color:rgba(240,235,224,.75);
+  cursor:none;transition:all .2s;
+}
+.lbtn:hover{border-color:rgba(240,235,224,.85);color:#f0ebe0;background:rgba(240,235,224,.07)}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:0 2.8rem 4.5rem;
+  position:relative;overflow:hidden;padding-top:58px;
+}
+.hero-bg-word{
+  position:absolute;font-family:'Alexandria',sans-serif;font-weight:900;
+  font-size:clamp(18rem,30vw,36rem);color:rgba(45,71,57,.2);line-height:1;
+  letter-spacing:-.04em;top:50%;left:50%;transform:translate(-50%,-50%);
+  white-space:nowrap;pointer-events:none;user-select:none;
+  animation:bgDrift 20s ease-in-out infinite alternate;
+}
+.hero-bg-word.en-v{font-family:'Clash Display',sans-serif;font-size:clamp(14rem,24vw,30rem)}
+@keyframes bgDrift{from{transform:translate(-50%,-50%) scale(1) rotate(-.4deg)}to{transform:translate(-50%,-50%) scale(1.05) rotate(.4deg)}}
+
+.hero-rule{width:100%;height:1px;background:rgba(240,235,224,.09);margin-bottom:3.5rem}
+.hero-bottom{display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:3rem}
+html[dir="ltr"] .hero-bottom{direction:ltr}
+.hero-h{font-family:'Alexandria',sans-serif;font-weight:900;font-size:clamp(4.5rem,9vw,11rem);color:#f0ebe0;line-height:1.0;letter-spacing:-.025em}
+html[data-lang="en"] .hero-h{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(4rem,8.5vw,10rem);line-height:.88;letter-spacing:-.05em}
+.lr{overflow:hidden;display:block}
+.li{display:block;transform:translateY(105%);animation:up .85s cubic-bezier(.16,1,.3,1) forwards}
+.li.d0{animation-delay:.05s}.li.d1{animation-delay:.2s}
+@keyframes up{to{transform:translateY(0)}}
+
+.hero-meta{display:flex;flex-direction:column;align-items:flex-end;gap:1.2rem;padding-bottom:.3rem;opacity:0;animation:fin .7s ease forwards .5s}
+html[dir="ltr"] .hero-meta{align-items:flex-start}
+@keyframes fin{to{opacity:1}}
+.hero-meta-label{font-family:'Satoshi',sans-serif;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.28)}
+html[dir="rtl"] .hero-meta-label{font-family:'Alexandria',sans-serif;letter-spacing:.06em}
+.hero-meta-val{font-family:'Alexandria',sans-serif;font-weight:700;font-size:1rem;color:rgba(240,235,224,.65);margin-top:.18rem}
+html[data-lang="en"] .hero-meta-val{font-family:'Satoshi',sans-serif;font-weight:500}
+.hero-divider-v{width:1px;height:36px;background:rgba(240,235,224,.1);margin:0 auto}
+
+.hero-pill{position:absolute;top:calc(58px + 2.5rem);inset-inline-start:2.8rem;display:inline-flex;align-items:center;gap:.55rem;border:1px solid rgba(240,235,224,.09);padding:.3rem .9rem;opacity:0;animation:fin .6s ease forwards .1s}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:#7a9e8a;animation:pdot 2.5s ease-in-out infinite}
+@keyframes pdot{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1.2)}}
+.pill-txt{font-family:'Satoshi',sans-serif;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(240,235,224,.35)}
+html[dir="rtl"] .pill-txt{font-family:'Alexandria',sans-serif;letter-spacing:.05em}
+
+.hero-scroll{position:absolute;bottom:4rem;inset-inline-start:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.7rem;opacity:0;animation:fin .6s ease forwards .8s}
+.scroll-track{width:1px;height:50px;background:rgba(240,235,224,.09);position:relative;overflow:hidden}
+.scroll-track::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:50%;background:linear-gradient(to bottom,transparent,rgba(122,158,138,.7),transparent);animation:scrollDrop 2.4s ease-in-out infinite 1.2s}
+@keyframes scrollDrop{0%{top:-100%}100%{top:200%}}
+.scroll-lbl{font-family:'Satoshi',sans-serif;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.18);writing-mode:vertical-rl}
+html[dir="rtl"] .scroll-lbl{font-family:'Alexandria',sans-serif}
+
+/* STRIP */
+.strip{border-top:1px solid rgba(240,235,224,.07);display:grid;grid-template-columns:repeat(3,1fr)}
+html[dir="ltr"] .strip{direction:ltr}
+.strip-cell{
+  padding:1.6rem 2.8rem;display:flex;align-items:center;gap:.9rem;
+  border-inline-start:1px solid rgba(240,235,224,.07);
+  transition:background .2s;
+  opacity:0;transform:translateY(14px);
+}
+.strip-cell:first-child{border-inline-start:none}
+.strip-cell:hover{background:rgba(240,235,224,.025)}
+.strip-cell.in{opacity:1;transform:none;transition:opacity .5s ease,transform .5s ease,background .2s}
+.strip-icon{font-size:.9rem;opacity:.22;flex-shrink:0}
+.strip-title-ar{font-family:'Alexandria',sans-serif;font-weight:700;font-size:.82rem;color:rgba(240,235,224,.7)}
+.strip-title-en{font-family:'Satoshi',sans-serif;font-weight:500;font-size:.78rem;color:rgba(240,235,224,.7)}
+.strip-sub-ar{font-family:'Alexandria',sans-serif;font-size:.68rem;color:rgba(240,235,224,.28);margin-top:.15rem;font-weight:300}
+.strip-sub-en{font-family:'Satoshi',sans-serif;font-size:.65rem;color:rgba(240,235,224,.28);margin-top:.15rem;font-weight:300}
+
+/* ABOUT */
+#about{border-top:1px solid rgba(240,235,224,.07);display:grid;grid-template-columns:1fr 1fr}
+html[dir="ltr"] #about{direction:ltr}
+.about-l{padding:5.5rem 2.8rem;border-inline-start:1px solid rgba(240,235,224,.07);display:flex;flex-direction:column;justify-content:space-between;gap:3rem}
+.about-r{padding:5.5rem 2.8rem}
+.sec-tag{font-family:'Satoshi',sans-serif;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:#7a9e8a;display:block;margin-bottom:1.4rem}
+html[dir="rtl"] .sec-tag{font-family:'Alexandria',sans-serif;letter-spacing:.08em}
+.about-hd{font-family:'Alexandria',sans-serif;font-weight:900;font-size:clamp(2.5rem,4vw,4rem);color:#f0ebe0;line-height:1.0;letter-spacing:-.02em}
+html[data-lang="en"] .about-hd{font-family:'Clash Display',sans-serif;font-weight:700;line-height:.9;letter-spacing:-.04em}
+.about-p{font-family:'Alexandria',sans-serif;font-size:.88rem;font-weight:300;color:rgba(240,235,224,.4);line-height:1.9;margin-top:1.5rem;max-width:400px}
+html[data-lang="en"] .about-p{font-family:'Satoshi',sans-serif;font-size:.8rem}
+.cta-link{display:inline-flex;align-items:center;gap:.55rem;border:1px solid rgba(240,235,224,.13);padding:.5rem 1.1rem;font-family:'Satoshi',sans-serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,235,224,.4);text-decoration:none;transition:all .2s}
+.cta-link:hover{border-color:rgba(240,235,224,.35);color:rgba(240,235,224,.8)}
+html[dir="rtl"] .cta-link{font-family:'Alexandria',sans-serif}
+.cov-label{font-family:'Satoshi',sans-serif;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,235,224,.22);margin-bottom:1.2rem;display:block}
+html[dir="rtl"] .cov-label{font-family:'Alexandria',sans-serif;letter-spacing:.08em}
+.cov-row{padding:.9rem 0;border-bottom:1px solid rgba(240,235,224,.06);font-family:'Alexandria',sans-serif;font-weight:700;font-size:.92rem;color:rgba(240,235,224,.5);display:flex;align-items:center;gap:.8rem;transition:color .2s,padding-inline-start .2s}
+.cov-row:hover{color:#f0ebe0;padding-inline-start:.5rem}
+.cov-row:last-child{border-bottom:none}
+html[data-lang="en"] .cov-row{font-family:'Satoshi',sans-serif;font-weight:500;font-size:.85rem}
+.cov-dot{width:4px;height:4px;border-radius:50%;background:#7a9e8a;flex-shrink:0;transition:transform .2s}
+.cov-row:hover .cov-dot{transform:scale(1.6)}
+
+/* TEAM */
+#team{border-top:1px solid rgba(240,235,224,.07)}
+.team-hd{padding:3rem 2.8rem 2.5rem;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid rgba(240,235,224,.07)}
+html[dir="ltr"] .team-hd{direction:ltr}
+.team-title{font-family:'Alexandria',sans-serif;font-weight:900;font-size:clamp(2rem,3.5vw,3rem);color:#f0ebe0;line-height:1;letter-spacing:-.02em}
+html[data-lang="en"] .team-title{font-family:'Clash Display',sans-serif;font-weight:700;letter-spacing:-.04em;line-height:.9}
+.team-ct{font-family:'Satoshi',sans-serif;font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.22);padding-bottom:.2rem}
+.team-grid{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid rgba(240,235,224,.07)}
+html[dir="ltr"] .team-grid{direction:ltr}
+.tm{padding:2.5rem 2rem;border-inline-start:1px solid rgba(240,235,224,.07);position:relative;overflow:hidden;transition:background .25s}
+.tm:first-child{border-inline-start:none}
+.tm::after{content:'';position:absolute;inset:0;background:rgba(122,158,138,.07);transform:scaleY(0);transform-origin:bottom;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.tm:hover{background:rgba(45,71,57,.2)}
+.tm:hover::after{transform:scaleY(1)}
+.tm-letter{font-family:'Alexandria',sans-serif;font-weight:900;font-size:3.2rem;color:rgba(122,158,138,.1);line-height:1;margin-bottom:1.2rem;letter-spacing:-.04em}
+html[data-lang="en"] .tm-letter{font-family:'Clash Display',sans-serif}
+.tm-name-ar{font-family:'Alexandria',sans-serif;font-weight:700;font-size:.85rem;color:#f0ebe0;line-height:1.45}
+.tm-name-en{font-family:'Satoshi',sans-serif;font-weight:600;font-size:.85rem;color:#f0ebe0;line-height:1.45;direction:ltr}
+html[data-lang="en"] .tm{direction:ltr;text-align:left}
+
+/* FOOTER */
+footer{border-top:1px solid rgba(240,235,224,.07);padding:2rem 2.8rem;display:flex;align-items:center;justify-content:space-between}
+html[dir="rtl"] footer{direction:rtl}
+.ft-brand{display:flex;align-items:center;gap:.55rem}
+.ft-brand img{height:22px;object-fit:contain;opacity:.28}
+.ft-name{font-family:'Alexandria',sans-serif;font-weight:700;font-size:.72rem;color:rgba(240,235,224,.28)}
+html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
+.ft-email{font-family:'Satoshi',sans-serif;font-size:.6rem;letter-spacing:.06em;color:rgba(240,235,224,.22);text-decoration:none;transition:color .15s}
+.ft-email:hover{color:rgba(240,235,224,.65)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  #nav{padding:0 1.4rem}.nav-links{display:none}
+  .hero{padding:0 1.4rem 3.5rem;padding-top:58px}
+  .hero-pill{inset-inline-start:1.4rem}
+  .hero-bottom{grid-template-columns:1fr}
+  .hero-meta{align-items:flex-start}
+  .hero-scroll{display:none}
+  .strip{grid-template-columns:1fr}
+  .strip-cell{border:none;border-bottom:1px solid rgba(240,235,224,.07)}
+  .strip-cell:last-child{border-bottom:none}
+  #about{grid-template-columns:1fr}
+  .about-l{border:none;border-bottom:1px solid rgba(240,235,224,.07);padding:3rem 1.4rem}
+  .about-r{padding:3rem 1.4rem}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .team-hd{padding:2rem 1.4rem}
+  .tm{border-inline-start:none;border-bottom:1px solid rgba(240,235,224,.07)}
+  footer{padding:1.5rem 1.4rem;flex-direction:column;gap:.8rem;text-align:center}
+}
+</style>
+</head>
+<body>
+<div id="dot"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="https://alieneverything.github.io/public_mp/MP.png" alt="MP">
+    <span class="nav-word"><span class="ari">نبض المدينة</span><span class="eni">Madinah Pulse</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="on"><span class="ari">الرئيسية</span><span class="eni">Home</span></a></li>
+    <li><a href="media.html"><span class="ari">المحتوى</span><span class="eni">Media</span></a></li>
+    <li><a href="contact.html"><span class="ari">تواصل</span><span class="eni">Contact</span></a></li>
+  </ul>
+  <button class="lbtn" id="lbtn" onclick="toggleLang()">عربي</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-word ar">نبض</div>
+  <div class="hero-bg-word en-v en">Pulse</div>
+
+  <div class="hero-pill">
+    <span class="pill-dot"></span>
+    <span class="pill-txt ari">المدينة المنورة — ٢٠٢٦</span>
+    <span class="pill-txt eni">Al Madinah — 2026</span>
+  </div>
+
+  <div class="hero-rule"></div>
+
+  <div class="hero-bottom">
+    <div>
+      <h1 class="hero-h ar">
+        <span class="lr"><span class="li d0">نبض</span></span>
+        <span class="lr"><span class="li d1">المدينة</span></span>
+      </h1>
+      <h1 class="hero-h en">
+        <span class="lr"><span class="li d0">Madinah</span></span>
+        <span class="lr"><span class="li d1">Pulse</span></span>
+      </h1>
+    </div>
+    <div class="hero-meta">
+      <div>
+        <div class="hero-meta-label ari">الموقع</div>
+        <div class="hero-meta-label eni">Location</div>
+        <div class="hero-meta-val ar">المدينة المنورة</div>
+        <div class="hero-meta-val en">Al Madinah, KSA</div>
+      </div>
+      <div class="hero-divider-v"></div>
+      <div>
+        <div class="hero-meta-label ari">الأعضاء</div>
+        <div class="hero-meta-label eni">Members</div>
+        <div class="hero-meta-val">5</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-track"></div>
+    <span class="scroll-lbl ari">أسفل</span>
+    <span class="scroll-lbl eni">scroll</span>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-cell">
+    <span class="strip-icon">🎤</span>
+    <div>
+      <div class="strip-title-ar ar">مقابلات</div>
+      <div class="strip-title-en en">Interviews</div>
+      <div class="strip-sub-ar ar">مقاهي، مدارس، مشاريع ناشئة</div>
+      <div class="strip-sub-en en">cafés, schools, startups</div>
+    </div>
+  </div>
+  <div class="strip-cell">
+    <span class="strip-icon">🎙</span>
+    <div>
+      <div class="strip-title-ar ar">بودكاست</div>
+      <div class="strip-title-en en">Podcast</div>
+      <div class="strip-sub-ar ar">حلقات صوتية من المدينة</div>
+      <div class="strip-sub-en en">audio episodes from the city</div>
+    </div>
+  </div>
+  <div class="strip-cell">
+    <span class="strip-icon">📰</span>
+    <div>
+      <div class="strip-title-ar ar">أخبار محلية</div>
+      <div class="strip-title-en en">Local News</div>
+      <div class="strip-sub-ar ar">نغطي ما يحدث حولنا</div>
+      <div class="strip-sub-en en">covering what's around us</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="rv">
+  <div class="about-l">
+    <div>
+      <span class="sec-tag ari">من نحن</span>
+      <span class="sec-tag eni">About</span>
+      <div class="about-hd ar">نحكي<br>ما لا يُحكى</div>
+      <div class="about-hd en">We Tell<br>What Goes<br>Untold</div>
+      <p class="about-p ar">نبض المدينة مجموعة من الشباب المحليين في المدينة المنورة — نؤمن بأن كل شخص وكل مكان حولنا يحمل قصة تستحق أن تُروى.</p>
+      <p class="about-p en">Madinah Pulse is a group of local youth from Al Madinah who believe every person and every place around them carries a story worth telling.</p>
+    </div>
+    <a href="contact.html" class="cta-link">
+      <span class="ari">تواصل معنا ←</span>
+      <span class="eni">Get in touch →</span>
+    </a>
+  </div>
+  <div class="about-r">
+    <span class="cov-label ari">ماذا نغطي</span>
+    <span class="cov-label eni">What we cover</span>
+    <div class="cov-row"><span class="cov-dot"></span><span class="ar">المقاهي والمطاعم</span><span class="en">Cafés &amp; Restaurants</span></div>
+    <div class="cov-row"><span class="cov-dot"></span><span class="ar">المعلمون والطلاب</span><span class="en">Teachers &amp; Students</span></div>
+    <div class="cov-row"><span class="cov-dot"></span><span class="ar">المشاريع الناشئة</span><span class="en">Startups &amp; Businesses</span></div>
+    <div class="cov-row"><span class="cov-dot"></span><span class="ar">الأخبار المحلية</span><span class="en">Local News</span></div>
+    <div class="cov-row"><span class="cov-dot"></span><span class="ar">قصص ناس المدينة</span><span class="en">Stories of the People</span></div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="rv">
+  <div class="team-hd">
+    <div>
+      <span class="sec-tag ari" style="margin-bottom:.6rem">الفريق المؤسس</span>
+      <span class="sec-tag eni" style="margin-bottom:.6rem">Founding Members</span>
+      <div class="team-title ar">الفريق</div>
+      <div class="team-title en">The Team</div>
+    </div>
+    <div class="team-ct">05 members</div>
+  </div>
+  <div class="team-grid">
+    <div class="tm"><div class="tm-letter ar">ح</div><div class="tm-letter en">H</div><div class="tm-name-ar ar">حسن حمزة الشاخص</div><div class="tm-name-en en">Hassan Hamzah Alshakhs</div></div>
+    <div class="tm"><div class="tm-letter ar">ن</div><div class="tm-letter en">N</div><div class="tm-name-ar ar">نواف محمد السهلي</div><div class="tm-name-en en">Nawaf Mohammed Al-Sahli</div></div>
+    <div class="tm"><div class="tm-letter ar">م</div><div class="tm-letter en">M</div><div class="tm-name-ar ar">مؤيد خالد زعفراني</div><div class="tm-name-en en">Moayad Khalid Zafarani</div></div>
+    <div class="tm"><div class="tm-letter ar">و</div><div class="tm-letter en">A</div><div class="tm-name-ar ar">الوليد علي مجرشي</div><div class="tm-name-en en">Alwaleed Ali Majrashi</div></div>
+    <div class="tm"><div class="tm-letter ar">ع</div><div class="tm-letter en">A</div><div class="tm-name-ar ar">عاصم محمد شيخ</div><div class="tm-name-en en">Asem Mohammed Shaikh</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-brand">
+    <img src="https://alieneverything.github.io/public_mp/MP.png" alt="">
+    <span class="ft-name"><span class="ari">نبض المدينة</span><span class="eni">Madinah Pulse</span></span>
+  </div>
+  <a href="mailto:madinahpulse@proton.me" class="ft-email">madinahpulse@proton.me</a>
+</footer>
+
+<script>
+const dot=document.getElementById('dot');
+document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px'});
+document.querySelectorAll('a,button,.tm,.strip-cell,.cov-row').forEach(el=>{
+  el.addEventListener('mouseenter',()=>dot.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>dot.classList.remove('hover'));
+});
+
+function toggleLang(){
+  const h=document.documentElement;
+  const next=h.getAttribute('data-lang')==='ar'?'en':'ar';
+  applyLang(next);
+  try{sessionStorage.setItem('mp-lang',next)}catch(e){}
+}
+function applyLang(l){
+  const h=document.documentElement;
+  h.setAttribute('data-lang',l);h.setAttribute('lang',l);
+  h.setAttribute('dir',l==='ar'?'rtl':'ltr');
+  document.getElementById('lbtn').textContent=l==='ar'?'EN':'عربي';
+}
+try{const s=sessionStorage.getItem('mp-lang');if(s)applyLang(s)}catch(e){}
+
+/* strip stagger */
+const stripCells=document.querySelectorAll('.strip-cell');
+const stripObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){
+    stripCells.forEach((c,i)=>setTimeout(()=>c.classList.add('in'),i*100));
+    stripObs.disconnect();
+  }
+},{threshold:.15});
+stripObs.observe(document.querySelector('.strip'));
+
+/* general reveal */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*80);obs.unobserve(e.target)}});
+},{threshold:.07});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+/* team stagger */
+const tms=document.querySelectorAll('.tm');
+const tmObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){
+    tms.forEach((c,i)=>{
+      c.style.opacity='0';c.style.transform='translateY(14px)';
+      c.style.transition=`opacity .5s ease ${i*.08}s,transform .5s ease ${i*.08}s`;
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{c.style.opacity='1';c.style.transform='none'}));
+    });
+    tmObs.disconnect();
+  }
+},{threshold:.15});
+if(tms[0])tmObs.observe(document.getElementById('team'));
+</script>
+</body>
+</html>
