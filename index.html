@@ -34,7 +34,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
 
 /* NAV */
 #nav{
-  position:fixed;top:0;inset-inline:0;z-index:500;height:58px;
+  position:fixed;top:0;inset-inline:0;z-index:500;height:58px;overflow:visible;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 2.8rem;
   border-bottom:1px solid rgba(240,235,224,.07);
@@ -44,7 +44,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
 @keyframes navIn{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
 .nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none}
 .nav-logo img{height:30px;width:30px;object-fit:contain}
-.nav-word{font-family:'Alexandria',sans-serif;font-weight:700;font-size:.9rem;color:#f0ebe0}
+.nav-word{font-family:'Alexandria',sans-serif;font-weight:700;font-size:.82rem;color:#f0ebe0;line-height:1.4;overflow:visible}
 html[data-lang="en"] .nav-word{font-family:'Clash Display',sans-serif;letter-spacing:-.02em}
 .nav-links{display:flex;gap:2.2rem;list-style:none;align-items:center}
 .nav-links a{
@@ -95,7 +95,7 @@ html[dir="rtl"] .nav-links a{font-family:'Alexandria',sans-serif;letter-spacing:
 .hero-rule{width:100%;height:1px;background:rgba(240,235,224,.09);margin-bottom:3.5rem}
 .hero-bottom{display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:3rem}
 html[dir="ltr"] .hero-bottom{direction:ltr}
-.hero-h{font-family:'Alexandria',sans-serif;font-weight:900;font-size:clamp(4.5rem,9vw,11rem);color:#f0ebe0;line-height:1.0;letter-spacing:-.025em}
+.hero-h{font-family:'Alexandria',sans-serif;font-weight:900;font-size:clamp(4.5rem,9vw,11rem);color:#f0ebe0;line-height:1.25;letter-spacing:-.025em}
 html[data-lang="en"] .hero-h{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(4rem,8.5vw,10rem);line-height:.88;letter-spacing:-.05em}
 .lr{overflow:hidden;display:block}
 .li{display:block;transform:translateY(105%);animation:up .85s cubic-bezier(.16,1,.3,1) forwards}
@@ -149,7 +149,7 @@ html[dir="ltr"] #about{direction:ltr}
 .about-r{padding:5.5rem 2.8rem}
 .sec-tag{font-family:'Satoshi',sans-serif;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:#7a9e8a;display:block;margin-bottom:1.4rem}
 html[dir="rtl"] .sec-tag{font-family:'Alexandria',sans-serif;letter-spacing:.08em}
-.about-hd{font-family:'Alexandria',sans-serif;font-weight:900;font-size:clamp(2.5rem,4vw,4rem);color:#f0ebe0;line-height:1.0;letter-spacing:-.02em}
+.about-hd{font-family:'Alexandria',sans-serif;font-weight:900;font-size:clamp(2.5rem,4vw,4rem);color:#f0ebe0;line-height:1.45;letter-spacing:-.02em}
 html[data-lang="en"] .about-hd{font-family:'Clash Display',sans-serif;font-weight:700;line-height:.9;letter-spacing:-.04em}
 .about-p{font-family:'Alexandria',sans-serif;font-size:.88rem;font-weight:300;color:rgba(240,235,224,.4);line-height:1.9;margin-top:1.5rem;max-width:400px}
 html[data-lang="en"] .about-p{font-family:'Satoshi',sans-serif;font-size:.8rem}
@@ -172,7 +172,7 @@ html[dir="ltr"] .team-hd{direction:ltr}
 .team-title{font-family:'Alexandria',sans-serif;font-weight:900;font-size:clamp(2rem,3.5vw,3rem);color:#f0ebe0;line-height:1;letter-spacing:-.02em}
 html[data-lang="en"] .team-title{font-family:'Clash Display',sans-serif;font-weight:700;letter-spacing:-.04em;line-height:.9}
 .team-ct{font-family:'Satoshi',sans-serif;font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.22);padding-bottom:.2rem}
-.team-grid{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid rgba(240,235,224,.07)}
+.team-grid{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid rgba(240,235,224,.07)}
 html[dir="ltr"] .team-grid{direction:ltr}
 .tm{padding:2.5rem 2rem;border-inline-start:1px solid rgba(240,235,224,.07);position:relative;overflow:hidden;transition:background .25s}
 .tm:first-child{border-inline-start:none}
@@ -213,7 +213,7 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
   #about{grid-template-columns:1fr}
   .about-l{border:none;border-bottom:1px solid rgba(240,235,224,.07);padding:3rem 1.4rem}
   .about-r{padding:3rem 1.4rem}
-  .team-grid{grid-template-columns:1fr 1fr}
+  .team-grid{grid-template-columns:1fr 1fr 1fr}
   .team-hd{padding:2rem 1.4rem}
   .tm{border-inline-start:none;border-bottom:1px solid rgba(240,235,224,.07)}
   footer{padding:1.5rem 1.4rem;flex-direction:column;gap:.8rem;text-align:center}
@@ -271,7 +271,7 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
       <div>
         <div class="hero-meta-label ari">الأعضاء</div>
         <div class="hero-meta-label eni">Members</div>
-        <div class="hero-meta-val">5</div>
+        <div class="hero-meta-val">6</div>
       </div>
     </div>
   </div>
@@ -350,13 +350,14 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
       <div class="team-title ar">الفريق</div>
       <div class="team-title en">The Team</div>
     </div>
-    <div class="team-ct">05 members</div>
+    <div class="team-ct">06 members</div>
   </div>
   <div class="team-grid">
-    <div class="tm"><div class="tm-letter ar">ح</div><div class="tm-letter en">H</div><div class="tm-name-ar ar">حسن حمزة الشاخص</div><div class="tm-name-en en">Hassan Hamzah Alshakhs</div></div>
+    <div class="tm"><div class="tm-letter ar">ح</div><div class="tm-letter en">H</div><div class="tm-name-ar ar">حسن حمزة الشخص</div><div class="tm-name-en en">Hassan Hamzah Alshakhs</div></div>
     <div class="tm"><div class="tm-letter ar">ن</div><div class="tm-letter en">N</div><div class="tm-name-ar ar">نواف محمد السهلي</div><div class="tm-name-en en">Nawaf Mohammed Al-Sahli</div></div>
     <div class="tm"><div class="tm-letter ar">م</div><div class="tm-letter en">M</div><div class="tm-name-ar ar">مؤيد خالد زعفراني</div><div class="tm-name-en en">Moayad Khalid Zafarani</div></div>
     <div class="tm"><div class="tm-letter ar">و</div><div class="tm-letter en">A</div><div class="tm-name-ar ar">الوليد علي مجرشي</div><div class="tm-name-en en">Alwaleed Ali Majrashi</div></div>
+    <div class="tm"><div class="tm-letter ar">م</div><div class="tm-letter en">M</div><div class="tm-name-ar ar">محمد وليد شاهيني</div><div class="tm-name-en en">Mohammed Walid Shahini</div></div>
     <div class="tm"><div class="tm-letter ar">ع</div><div class="tm-letter en">A</div><div class="tm-name-ar ar">عاصم محمد شيخ</div><div class="tm-name-en en">Asem Mohammed Shaikh</div></div>
   </div>
 </section>
