@@ -120,6 +120,87 @@ html[data-lang="en"] .hero-h{font-family:'Clash Display',sans-serif;font-weight:
 .scroll-lbl{font-family:'Satoshi',sans-serif;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.18);writing-mode:vertical-rl}
 html[dir="rtl"] .scroll-lbl{font-family:'Alexandria',sans-serif}
 
+/* ── Projects Feed ── */
+.projects-feed{
+  padding:6rem 2.8rem;
+  display:flex;flex-direction:column;gap:6rem;
+}
+
+.project-entry{
+  display:grid;grid-template-columns:1fr 2.5fr;gap:3rem;
+  border-top:1px solid rgba(240,235,224,.07);
+  padding-top:3rem;
+  align-items:start;
+}
+html[dir="rtl"] .project-entry{direction:rtl}
+
+.project-meta{
+  display:flex;flex-direction:column;gap:1.2rem;
+  position:sticky;top:80px;
+}
+
+.project-num{
+  font-family:'Satoshi',sans-serif;font-size:.58rem;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(240,235,224,.2);
+}
+html[dir="rtl"] .project-num{font-family:'Alexandria',sans-serif;letter-spacing:.06em}
+
+.project-tag{
+  display:inline-flex;align-items:center;gap:.4rem;
+  border:1px solid rgba(122,158,138,.25);
+  padding:.25rem .65rem;
+  font-family:'Satoshi',sans-serif;font-size:.55rem;letter-spacing:.12em;
+  text-transform:uppercase;color:#7a9e8a;width:fit-content;
+}
+html[dir="rtl"] .project-tag{font-family:'Alexandria',sans-serif;letter-spacing:.04em}
+
+.project-title-side{
+  font-family:'Alexandria',sans-serif;font-weight:900;
+  font-size:clamp(1.2rem,2.2vw,1.8rem);color:#f0ebe0;
+  line-height:1.1;letter-spacing:-.02em;
+}
+html[data-lang="en"] .project-title-side{font-family:'Clash Display',sans-serif;letter-spacing:-.04em}
+
+.project-by{
+  font-family:'Satoshi',sans-serif;font-size:.6rem;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(240,235,224,.28);
+  display:flex;flex-direction:column;gap:.3rem;
+}
+html[dir="rtl"] .project-by{font-family:'Alexandria',sans-serif;letter-spacing:.04em}
+.project-by span{color:rgba(240,235,224,.55)}
+
+.project-body{display:flex;flex-direction:column;gap:2rem}
+
+/* Gallery */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:.75rem;
+}
+
+.gimg{
+  position:relative;overflow:hidden;aspect-ratio:4/3;
+  border:1px solid rgba(240,235,224,.06);
+  background:#0a1410;
+}
+.gimg:nth-child(1){grid-column:span 2;aspect-ratio:16/9}
+.gimg:nth-child(4){grid-column:span 2;aspect-ratio:16/9}
+
+.gimg img{
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+  transition:transform .55s cubic-bezier(.16,1,.3,1),filter .55s ease;
+  filter:saturate(.85);
+}
+.gimg:hover img{transform:scale(1.04);filter:saturate(1)}
+
+.gimg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(15,26,20,.4) 0%,transparent 50%);
+  pointer-events:none;
+}
+
+/* ── Footer ── */
 footer{border-top:1px solid rgba(240,235,224,.07);padding:2rem 2.8rem;display:flex;align-items:center;justify-content:space-between}
 html[dir="rtl"] footer{direction:rtl}
 .ft-brand{display:flex;align-items:center;gap:.55rem}
@@ -136,6 +217,15 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
   #nav{padding:0 1.4rem}.nav-links{display:none}
   .hero-scroll{display:none}.corners{inset:1.5rem}
   footer{padding:1.5rem 1.4rem;flex-direction:column;gap:.8rem;text-align:center}
+  .project-entry{grid-template-columns:1fr;gap:1.8rem}
+  .project-meta{position:static}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .gimg:nth-child(1),.gimg:nth-child(4){grid-column:span 2}
+  .projects-feed{padding:3.5rem 1.4rem;gap:4rem}
+}
+@media(max-width:480px){
+  .gallery-grid{grid-template-columns:1fr}
+  .gimg:nth-child(1),.gimg:nth-child(4){grid-column:span 1;aspect-ratio:4/3}
 }
 </style>
 </head>
@@ -171,15 +261,12 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
     <div class="cross"></div>
     <span class="mono"><span class="ari">المحتوى الإعلامي</span><span class="eni">Media Content</span></span>
     <h1 class="hero-h ar">
-      <span class="lr"><span class="li d0">مساحة محجوزة</span></span>
-      <span class="lr"><span class="li d1">للإعلام</span></span>
+      <span class="lr"><span class="li d0">إعلام</span></span>
     </h1>
     <h1 class="hero-h en">
       <span class="lr"><span class="li d0">Media</span></span>
-      <span class="lr"><span class="li d1">Placeholder</span></span>
     </h1>
     <div class="hdiv"></div>
-    <span class="mono"><span class="ari">المقابلات، التقارير، والمحتوى — قريباً</span><span class="eni">Interviews, reports, content — coming soon</span></span>
   </div>
   <div class="hero-scroll">
     <div class="scroll-track"></div>
@@ -187,6 +274,32 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
     <span class="scroll-lbl eni">scroll</span>
   </div>
 </section>
+
+<div class="projects-feed">
+  <article class="project-entry rv">
+    <div class="project-meta">
+      <span class="project-num">01</span>
+      <span class="project-tag"><span class="ari">مدرسة</span><span class="eni">School</span></span>
+      <h2 class="project-title-side ar">الهوية الوطنية السعودية والثقافة</h2>
+      <h2 class="project-title-side en">Saudi Nationality and Culture</h2>
+      <div class="project-by">
+        <span class="ari">بقلم</span><span class="eni">By</span>
+        <span class="ar">أحمد عسيري<br>أنس الحويطي</span>
+        <span class="en">Ahmed Assiri<br>Anas Al-Huwaiti</span>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="gallery-grid">
+        <div class="gimg"><img src="https://alieneverything.github.io/public_mp/1.jpeg" alt="Saudi Nationality and Culture — 1" loading="lazy"></div>
+        <div class="gimg"><img src="https://alieneverything.github.io/public_mp/2.jpeg" alt="Saudi Nationality and Culture — 2" loading="lazy"></div>
+        <div class="gimg"><img src="https://alieneverything.github.io/public_mp/3.jpeg" alt="Saudi Nationality and Culture — 3" loading="lazy"></div>
+        <div class="gimg"><img src="https://alieneverything.github.io/public_mp/4.jpeg" alt="Saudi Nationality and Culture — 4" loading="lazy"></div>
+        <div class="gimg"><img src="https://alieneverything.github.io/public_mp/5.jpeg" alt="Saudi Nationality and Culture — 5" loading="lazy"></div>
+        <div class="gimg"><img src="https://alieneverything.github.io/public_mp/6.jpeg" alt="Saudi Nationality and Culture — 6" loading="lazy"></div>
+      </div>
+    </div>
+  </article>
+</div>
 
 <footer>
   <div class="ft-brand">
