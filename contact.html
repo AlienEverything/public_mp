@@ -46,6 +46,20 @@ html[dir="rtl"] .nav-links a{font-family:'Alexandria',sans-serif;letter-spacing:
 .lbtn{font-family:'Satoshi',sans-serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:.3rem .9rem;border:1px solid rgba(240,235,224,.38);background:transparent;color:rgba(240,235,224,.62);cursor:none;transition:all .2s}
 .lbtn:hover{border-color:rgba(240,235,224,.75);color:#f0ebe0}
 
+/* Hamburger */
+.ham{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:none;padding:4px;width:30px;height:30px;flex-shrink:0}
+.ham span{display:block;width:20px;height:1px;background:rgba(240,235,224,.65);transition:transform .3s,opacity .3s}
+.ham.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+/* Mobile menu */
+.mob-menu{position:fixed;top:58px;inset-inline:0;z-index:498;background:rgba(15,26,20,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(240,235,224,.07);display:none;flex-direction:column}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:'Satoshi',sans-serif;font-size:.65rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,235,224,.45);text-decoration:none;padding:1rem 2rem;border-bottom:1px solid rgba(240,235,224,.05);text-align:center;transition:color .15s}
+html[dir="rtl"] .mob-menu a{font-family:'Alexandria',sans-serif;letter-spacing:.06em}
+.mob-menu a:last-child{border-bottom:none}
+.mob-menu a:hover,.mob-menu a.on{color:#f0ebe0}
+
 /* page */
 .page{padding-top:58px;min-height:100vh;display:flex;flex-direction:column}
 
@@ -144,7 +158,7 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
 .rv.in{opacity:1;transform:none}
 
 @media(max-width:860px){
-  #nav{padding:0 1.4rem}.nav-links{display:none}
+  #nav{padding:0 1.4rem}.nav-links{display:none}.ham{display:flex}
   .ct-grid{grid-template-columns:1fr}
   .ct-left{padding:3.5rem 2rem;min-height:auto}
   .ct-right{padding:2.5rem 2rem}
@@ -165,8 +179,16 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
     <li><a href="media.html"><span class="ari">المحتوى</span><span class="eni">Media</span></a></li>
     <li><a href="contact.html" class="on"><span class="ari">تواصل</span><span class="eni">Contact</span></a></li>
   </ul>
-  <button class="lbtn" id="lbtn" onclick="toggleLang()">عربي</button>
+  <div style="display:flex;align-items:center;gap:.7rem">
+    <button class="ham" id="ham" aria-label="Menu" onclick="toggleMobNav()"><span></span><span></span><span></span></button>
+    <button class="lbtn" id="lbtn" onclick="toggleLang()">عربي</button>
+  </div>
 </nav>
+<div class="mob-menu" id="mob-menu">
+  <a href="index.html"><span class="ari">الرئيسية</span><span class="eni">Home</span></a>
+  <a href="media.html"><span class="ari">المحتوى</span><span class="eni">Media</span></a>
+  <a href="contact.html" class="on"><span class="ari">تواصل</span><span class="eni">Contact</span></a>
+</div>
 
 <div class="page">
   <div class="ct-grid rv">
@@ -258,6 +280,17 @@ document.querySelectorAll('a,button,.srow').forEach(el=>{
   el.addEventListener('mouseleave',()=>dot.classList.remove('hover'));
 });
 
+function toggleMobNav(){
+  const m=document.getElementById('mob-menu');
+  const h=document.getElementById('ham');
+  m.classList.toggle('open');h.classList.toggle('open');
+}
+document.querySelectorAll('.mob-menu a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    document.getElementById('mob-menu').classList.remove('open');
+    document.getElementById('ham').classList.remove('open');
+  });
+});
 function toggleLang(){
   const h=document.documentElement;
   const next=h.getAttribute('data-lang')==='ar'?'en':'ar';
