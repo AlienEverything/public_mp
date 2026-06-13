@@ -62,6 +62,20 @@ html[dir="rtl"] .nav-links a{font-family:'Alexandria',sans-serif;letter-spacing:
 }
 .lbtn:hover{border-color:rgba(240,235,224,.85);color:#f0ebe0;background:rgba(240,235,224,.07)}
 
+/* Hamburger */
+.ham{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:none;padding:4px;width:30px;height:30px;flex-shrink:0}
+.ham span{display:block;width:20px;height:1px;background:rgba(240,235,224,.65);transition:transform .3s,opacity .3s}
+.ham.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+/* Mobile menu */
+.mob-menu{position:fixed;top:58px;inset-inline:0;z-index:498;background:rgba(15,26,20,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(240,235,224,.07);display:none;flex-direction:column}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:'Satoshi',sans-serif;font-size:.65rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,235,224,.45);text-decoration:none;padding:1rem 2rem;border-bottom:1px solid rgba(240,235,224,.05);text-align:center;transition:color .15s}
+html[dir="rtl"] .mob-menu a{font-family:'Alexandria',sans-serif;letter-spacing:.06em}
+.mob-menu a:last-child{border-bottom:none}
+.mob-menu a:hover,.mob-menu a.on{color:#f0ebe0}
+
 .hero{
   min-height:calc(100vh - 58px);margin-top:58px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -174,17 +188,27 @@ html[dir="rtl"] .project-by{font-family:'Alexandria',sans-serif;letter-spacing:.
 /* Gallery */
 .gallery-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(2,1fr);
   gap:.75rem;
 }
+.gallery-grid.g6 .gimg:nth-child(1),
+.gallery-grid.g6 .gimg:nth-child(4),
+.gallery-grid.g3 .gimg:nth-child(1){grid-column:span 2;aspect-ratio:16/9}
 
 .gimg{
   position:relative;overflow:hidden;aspect-ratio:4/3;
   border:1px solid rgba(240,235,224,.06);
   background:#0a1410;
 }
-.gimg:nth-child(1){grid-column:span 2;aspect-ratio:16/9}
-.gimg:nth-child(4){grid-column:span 2;aspect-ratio:16/9}
+
+/* Q&A */
+.qa-list{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(240,235,224,.07);margin-top:0}
+.qa-item{padding:1.4rem 0;border-bottom:1px solid rgba(240,235,224,.06)}
+.qa-item:last-child{border-bottom:none}
+.qa-qlabel{font-family:'Satoshi',sans-serif;font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:#7a9e8a;display:block;margin-bottom:.35rem}
+html[dir="rtl"] .qa-qlabel{font-family:'Alexandria',sans-serif;letter-spacing:.06em}
+.qa-q{font-family:'Alexandria',sans-serif;font-size:.82rem;font-weight:700;color:rgba(240,235,224,.62);line-height:1.6;margin-bottom:.55rem}
+.qa-a{font-family:'Alexandria',sans-serif;font-size:.8rem;font-weight:300;color:rgba(240,235,224,.38);line-height:1.9}
 
 .gimg img{
   width:100%;height:100%;object-fit:cover;
@@ -214,18 +238,16 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
 .rv.in{opacity:1;transform:none}
 
 @media(max-width:860px){
-  #nav{padding:0 1.4rem}.nav-links{display:none}
+  #nav{padding:0 1.4rem}.nav-links{display:none}.ham{display:flex}
   .hero-scroll{display:none}.corners{inset:1.5rem}
   footer{padding:1.5rem 1.4rem;flex-direction:column;gap:.8rem;text-align:center}
   .project-entry{grid-template-columns:1fr;gap:1.8rem}
   .project-meta{position:static}
-  .gallery-grid{grid-template-columns:repeat(2,1fr)}
-  .gimg:nth-child(1),.gimg:nth-child(4){grid-column:span 2}
   .projects-feed{padding:3.5rem 1.4rem;gap:4rem}
 }
 @media(max-width:480px){
   .gallery-grid{grid-template-columns:1fr}
-  .gimg:nth-child(1),.gimg:nth-child(4){grid-column:span 1;aspect-ratio:4/3}
+  .gallery-grid.g6 .gimg:nth-child(1),.gallery-grid.g6 .gimg:nth-child(4),.gallery-grid.g3 .gimg:nth-child(1){grid-column:span 1;aspect-ratio:4/3}
 }
 </style>
 </head>
@@ -242,8 +264,16 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
     <li><a href="media.html" class="on"><span class="ari">المحتوى</span><span class="eni">Media</span></a></li>
     <li><a href="contact.html"><span class="ari">تواصل</span><span class="eni">Contact</span></a></li>
   </ul>
-  <button class="lbtn" id="lbtn" onclick="toggleLang()">عربي</button>
+  <div style="display:flex;align-items:center;gap:.7rem">
+    <button class="ham" id="ham" aria-label="Menu" onclick="toggleMobNav()"><span></span><span></span><span></span></button>
+    <button class="lbtn" id="lbtn" onclick="toggleLang()">عربي</button>
+  </div>
 </nav>
+<div class="mob-menu" id="mob-menu">
+  <a href="index.html"><span class="ari">الرئيسية</span><span class="eni">Home</span></a>
+  <a href="media.html" class="on"><span class="ari">المحتوى</span><span class="eni">Media</span></a>
+  <a href="contact.html"><span class="ari">تواصل</span><span class="eni">Contact</span></a>
+</div>
 
 <section class="hero">
   <div class="hero-bg-word ar">إعلام</div>
@@ -289,13 +319,86 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
       </div>
     </div>
     <div class="project-body">
-      <div class="gallery-grid">
+      <div class="gallery-grid g6">
         <div class="gimg"><img src="https://alieneverything.github.io/public_mp/1.jpeg" alt="Saudi Nationality and Culture — 1" loading="lazy"></div>
         <div class="gimg"><img src="https://alieneverything.github.io/public_mp/2.jpeg" alt="Saudi Nationality and Culture — 2" loading="lazy"></div>
         <div class="gimg"><img src="https://alieneverything.github.io/public_mp/3.jpeg" alt="Saudi Nationality and Culture — 3" loading="lazy"></div>
         <div class="gimg"><img src="https://alieneverything.github.io/public_mp/4.jpeg" alt="Saudi Nationality and Culture — 4" loading="lazy"></div>
         <div class="gimg"><img src="https://alieneverything.github.io/public_mp/5.jpeg" alt="Saudi Nationality and Culture — 5" loading="lazy"></div>
         <div class="gimg"><img src="https://alieneverything.github.io/public_mp/6.jpeg" alt="Saudi Nationality and Culture — 6" loading="lazy"></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="project-entry rv">
+    <div class="project-meta">
+      <span class="project-num">02</span>
+      <span class="project-tag"><span class="ari">مجلة</span><span class="eni">Magazine</span></span>
+      <h2 class="project-title-side ar">الرياضيات</h2>
+      <h2 class="project-title-side en">Mathematics</h2>
+      <div class="project-by">
+        <span class="ari">من</span><span class="eni">By</span>
+        <span>نبض المدينة</span>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="gallery-grid g2">
+        <div class="gimg"><img src="https://madinah-pulse.onthewifi.com/math1.jpeg" alt="رياضيات — 1" loading="lazy"></div>
+        <div class="gimg"><img src="https://madinah-pulse.onthewifi.com/math2.jpeg" alt="رياضيات — 2" loading="lazy"></div>
+      </div>
+      <div class="qa-list">
+        <div class="qa-item">
+          <span class="qa-qlabel">سؤال</span>
+          <div class="qa-q">ماذا تنصح الطالب الذي يواجه صعوبة في المادة؟</div>
+          <div class="qa-a">أن يحدد نقاط الضعف لديه ويطلب المساعدة من المعلم ويستمر في التدريب ولا يتراجع</div>
+        </div>
+        <div class="qa-item">
+          <span class="qa-qlabel">سؤال</span>
+          <div class="qa-q">ما الأخطاء الشائعة التي يقع فيها الطلاب؟</div>
+          <div class="qa-a">التسرع في الحل وعدم قراءة السؤال كاملًا أو إهمال مراجعة الإجابة</div>
+        </div>
+        <div class="qa-item">
+          <span class="qa-qlabel">سؤال</span>
+          <div class="qa-q">إيش نصيحتك للطلاب اللي بيختبرون التحصيلي؟</div>
+          <div class="qa-a">أنصحهم يبدؤوا المذاكرة بدري وما يأجلوا، ويركزوا على فهم الأفكار والقوانين الأساسية، ويكثروا من حل التجميعات والاختبارات التجريبية عشان يتعودوا على طريقة الأسئلة</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="project-entry rv">
+    <div class="project-meta">
+      <span class="project-num">03</span>
+      <span class="project-tag"><span class="ari">مجلة</span><span class="eni">Magazine</span></span>
+      <h2 class="project-title-side ar">الكفايات اللغوية</h2>
+      <h2 class="project-title-side en">Arabic Language</h2>
+      <div class="project-by">
+        <span class="ari">من</span><span class="eni">By</span>
+        <span>نبض المدينة</span>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="gallery-grid g3">
+        <div class="gimg"><img src="https://madinah-pulse.onthewifi.com/arbc1.jpeg" alt="كفايات لغوية — 1" loading="lazy"></div>
+        <div class="gimg"><img src="https://madinah-pulse.onthewifi.com/arbc2.jpeg" alt="كفايات لغوية — 2" loading="lazy"></div>
+        <div class="gimg"><img src="https://madinah-pulse.onthewifi.com/arbc3.jpeg" alt="كفايات لغوية — 3" loading="lazy"></div>
+      </div>
+      <div class="qa-list">
+        <div class="qa-item">
+          <span class="qa-qlabel">سؤال</span>
+          <div class="qa-q">رسالتك للطلاب في مادة الكفايات اللغوية؟</div>
+          <div class="qa-a">اهتموا باللغة العربية؛ فهي وسيلة العلم والتواصل، وكلما أتقنتموها أصبح التعبير عن أفكاركم أسهل وأقوى</div>
+        </div>
+        <div class="qa-item">
+          <span class="qa-qlabel">سؤال</span>
+          <div class="qa-q">إيش أفضل طريقة للاستعداد للقدرات اللفظية؟</div>
+          <div class="qa-a">القراءة بشكل مستمر تساعد كثير، وكمان حل أسئلة القدرات اللفظية بشكل متكرر. كل ما تدرب الطالب أكثر على التناظر اللفظي واستيعاب المقروء وإكمال الجمل، صار أداؤه أفضل في الاختبار.</div>
+        </div>
+        <div class="qa-item">
+          <span class="qa-qlabel">سؤال</span>
+          <div class="qa-q">ما أبرز المهارات التي يهدف مقرر الكفايات اللغوية إلى تنميتها لدى الطلاب؟</div>
+          <div class="qa-a">يهدف المقرر إلى تنمية مهارات القراءة والكتابة والتواصل اللغوي، بالإضافة إلى تحسين القدرة على فهم النصوص وتحليلها واستخدام اللغة العربية بطريقة صحيحة في الحياة الدراسية والعملية.</div>
+        </div>
       </div>
     </div>
   </article>
@@ -315,6 +418,17 @@ document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.styl
 document.querySelectorAll('a,button').forEach(el=>{
   el.addEventListener('mouseenter',()=>dot.classList.add('hover'));
   el.addEventListener('mouseleave',()=>dot.classList.remove('hover'));
+});
+function toggleMobNav(){
+  const m=document.getElementById('mob-menu');
+  const h=document.getElementById('ham');
+  m.classList.toggle('open');h.classList.toggle('open');
+}
+document.querySelectorAll('.mob-menu a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    document.getElementById('mob-menu').classList.remove('open');
+    document.getElementById('ham').classList.remove('open');
+  });
 });
 function toggleLang(){
   const h=document.documentElement;
