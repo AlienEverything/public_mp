@@ -226,6 +226,16 @@ html[data-lang="en"] .qa-a{font-family:'Satoshi',sans-serif}
   pointer-events:none;
 }
 
+.gvideo{
+  position:relative;overflow:hidden;aspect-ratio:16/9;
+  border:1px solid rgba(240,235,224,.06);
+  background:#0a1410;
+}
+.gvideo video{
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+}
+
 /* ── Footer ── */
 footer{border-top:1px solid rgba(240,235,224,.07);padding:2rem 2.8rem;display:flex;align-items:center;justify-content:space-between}
 html[dir="rtl"] footer{direction:rtl}
@@ -309,10 +319,40 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
 
 <div class="projects-feed">
 
-  <!-- 01: الكفايات اللغوية -->
+  <!-- 01: مقابلة - النشاط الطلابي -->
   <article class="project-entry rv">
     <div class="project-meta">
       <span class="project-num">01</span>
+      <span class="project-tag"><span class="ari">مقابلة</span><span class="eni">Interview</span></span>
+      <h2 class="project-title-side ar">النشاط الطلابي</h2>
+      <h2 class="project-title-side en">Student Activities</h2>
+      <div class="project-by">
+        <span class="ari">من</span><span class="eni">By</span>
+        <span>نبض المدينة</span>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="gvideo">
+        <video controls preload="metadata" playsinline>
+          <source src="https://madinah-pulse.onthewifi.com/interview.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="qa-list">
+        <div class="qa-item">
+          <span class="qa-qlabel"><span class="ari">الضيف</span><span class="eni">Guest</span></span>
+          <div class="qa-q">
+            <div class="ar">جمال المطيري — المرشد الطلابي</div>
+            <div class="en">Jamal Al-Mutairi — Student Counselor</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 02: الكفايات اللغوية -->
+  <article class="project-entry rv">
+    <div class="project-meta">
+      <span class="project-num">02</span>
       <span class="project-tag"><span class="ari">مجلة</span><span class="eni">Magazine</span></span>
       <h2 class="project-title-side ar">الكفايات اللغوية</h2>
       <h2 class="project-title-side en">Arabic Language</h2>
@@ -365,10 +405,10 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
     </div>
   </article>
 
-  <!-- 02: الرياضيات -->
+  <!-- 03: الرياضيات -->
   <article class="project-entry rv">
     <div class="project-meta">
-      <span class="project-num">02</span>
+      <span class="project-num">03</span>
       <span class="project-tag"><span class="ari">مجلة</span><span class="eni">Magazine</span></span>
       <h2 class="project-title-side ar">الرياضيات</h2>
       <h2 class="project-title-side en">Mathematics</h2>
@@ -420,10 +460,10 @@ html[data-lang="en"] .ft-name{font-family:'Satoshi',sans-serif}
     </div>
   </article>
 
-  <!-- 03: الهوية الوطنية -->
+  <!-- 04: الهوية الوطنية -->
   <article class="project-entry rv">
     <div class="project-meta">
-      <span class="project-num">03</span>
+      <span class="project-num">04</span>
       <span class="project-tag"><span class="ari">مدرسة</span><span class="eni">School</span></span>
       <h2 class="project-title-side ar">الهوية الوطنية السعودية والثقافة</h2>
       <h2 class="project-title-side en">Saudi Nationality and Culture</h2>
